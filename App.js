@@ -1,27 +1,41 @@
 import React, { Component } from "react";
-import { createAppContainer } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./Screens/HomeScreen";
 import DetailsScreen from "./Screens/DetailsScreen";
 import FormScreen from "./Screens/FormScreen";
 
-const RootStack = createStackNavigator(
-  {
-    Home: HomeScreen,
-    Details: DetailsScreen,
-    Form: FormScreen
-  },
-  {
-    initialRouteName: 'Home'
-  }
-);
+const Stack = createNativeStackNavigator();
 
-const AppContainer = createAppContainer(RootStack);
+function NavStack()
+{
+  return (
+     <Stack.Navigator initialRouteName="HomeScreen">
+      <Stack.Screen 
+        name="Home" 
+        component={HomeScreen} 
+        options={{ title: 'Home' }}
+      />
+      <Stack.Screen 
+        name="Details" 
+        component={DetailsScreen} 
+        options={{ title: 'Details' }}
+      />
+      <Stack.Screen 
+       name="Form" 
+       component={FormScreen} 
+       options={{ title: 'Form' }}
+      />
+    </Stack.Navigator>
+  );
+}
 
 export default class App extends Component {
   render() {
     return (
-       <AppContainer />
+      <NavigationContainer>
+      <NavStack />
+      </NavigationContainer>
     );
   }
 }
